@@ -1,10 +1,14 @@
+import { dbContext } from "../db/DbContext.js"
 
 
 
 
 class KeepsService {
-    getAllKeeps() {
-        throw new Error("Method not implemented.");
+    async getAllKeeps() {
+        const keeps = await dbContext.Keeps.find()
+        .populate('creator', 'name picture')
+        .populate('keptCount')
+        return keeps
     }
 
 }
