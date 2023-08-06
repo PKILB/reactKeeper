@@ -5,8 +5,11 @@ import { BadRequest } from "../utils/Errors.js"
 
 
 class KeepsService {
-    createKeep(keepData) {
-        throw new Error("Method not implemented.")
+    async createKeep(keepData) {
+        const keep = await dbContext.Keeps.create(keepData)
+
+        await keep.populate('creator')
+        return keep
     }
     async getKeepById(keepId) {
         const keep = await dbContext.Keeps.findById(keepId).populate('creator', 'name picture')
