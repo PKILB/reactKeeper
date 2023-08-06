@@ -10,6 +10,16 @@ export class KeepsController extends BaseController {
         super('api/keeps')
         this.router
         .get('', this.getAllKeeps)
+        .get('/:keepId', this.getKeepById)
+    }
+    async getKeepById(req, res, next) {
+        try {
+            const keepId = req.params.keepId
+            const keep = await keepsService.getKeepById(keepId)
+            return res.send
+        } catch (error) {
+            next(error)
+        }
     }
     async getAllKeeps(req, res, next) {
         try {
